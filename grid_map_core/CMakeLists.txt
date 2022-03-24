@@ -8,7 +8,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED)
 
-## Define Eigen addons. 
+## Define Eigen addons.
 include(cmake/${PROJECT_NAME}-extras.cmake)
 
 ## System dependencies are found with CMake's conventions
@@ -65,6 +65,7 @@ add_library(${PROJECT_NAME}
    src/CubicInterpolation.cpp
    src/iterators/GridMapIterator.cpp
    src/iterators/SubmapIterator.cpp
+   src/iterators/PizzaSliceIterator.cpp
    src/iterators/CircleIterator.cpp
    src/iterators/EllipseIterator.cpp
    src/iterators/SpiralIterator.cpp

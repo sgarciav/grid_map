@@ -33,14 +33,15 @@ IteratorsDemo::IteratorsDemo(ros::NodeHandle& nodeHandle)
   ros::Duration duration(2.0);
   duration.sleep();
 
-  demoGridMapIterator();
-  demoSubmapIterator();
+  // demoGridMapIterator();
+  // demoSubmapIterator();
   demoCircleIterator();
-  demoEllipseIterator();
-  demoSpiralIterator();
-  demoLineIterator();
-  demoPolygonIterator();
-  demoSlidingWindowIterator();
+  demoPizzaSliceIterator();
+  // demoEllipseIterator();
+  // demoSpiralIterator();
+  // demoLineIterator();
+  // demoPolygonIterator();
+  // demoSlidingWindowIterator();
 }
 
 IteratorsDemo::~IteratorsDemo() {}
@@ -99,6 +100,43 @@ void IteratorsDemo::demoCircleIterator()
 
   for (grid_map::CircleIterator iterator(map_, center, radius);
       !iterator.isPastEnd(); ++iterator) {
+    map_.at("type", *iterator) = 1.0;
+    publish();
+    ros::Duration duration(0.02);
+    duration.sleep();
+  }
+
+  ros::Duration duration(1.0);
+  duration.sleep();
+}
+
+void IteratorsDemo::demoPizzaSliceIterator()
+{
+  ROS_INFO("Running pizza slice iterator demo.");
+  map_.clearAll();
+  publish();
+
+  // 45deg rotation matrix (yaw)
+  // Eigen::AngleAxisd rollAngle(0, Eigen::Vector3d::UnitZ());
+  // Eigen::AngleAxisd yawAngle(M_PI/4, Eigen::Vector3d::UnitY());
+  // Eigen::AngleAxisd pitchAngle(0, Eigen::Vector3d::UnitX());
+  // Eigen::Quaternion<double> q = rollAngle * yawAngle * pitchAngle;
+  // Eigen::Matrix3d R = q.normalized().toRotationMatrix();
+
+  const Position center(0.0, -0.15);
+  const double radius = 0.4;
+  const float yaw_rad = 135.0 * M_PI / 180.0;
+  const float fov_rad = 135.0 * M_PI / 180.0;
+
+  // grid_map::Polygon polygon;
+  // polygon.setFrameId(map_.getFrameId());
+  // polygon.addVertex(Position({ 0.480, 0.000 }));
+  // geometry_msgs::PolygonStamped message;
+  // grid_map::PolygonRosConverter::toMessage(polygon, message);
+  // polygonPublisher_.publish(message);
+
+  for (grid_map::PizzaSliceIterator iterator(map_, center, radius, yaw_rad, fov_rad);
+       !iterator.isPastEnd(); ++iterator) {
     map_.at("type", *iterator) = 1.0;
     publish();
     ros::Duration duration(0.02);

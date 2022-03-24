@@ -40,6 +40,7 @@ class IteratorsDemo
   void demoGridMapIterator();
   void demoSubmapIterator();
   void demoCircleIterator();
+  void demoPizzaSliceIterator();
   void demoEllipseIterator();
   void demoSpiralIterator();
   void demoLineIterator();
